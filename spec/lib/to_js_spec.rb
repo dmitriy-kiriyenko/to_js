@@ -35,12 +35,19 @@ describe "Object#to_js" do
     [1, 2, "Hello"].to_js.should == "[1, 2, \"Hello\"]"
   end
 
-  it "should return js array literal for set" do
+  it "should return js array literal for set", :ruby => 1.9 do
     Set.new([1, 2, "Hello"]).to_js.should == "[1, 2, \"Hello\"]"
   end
 
-  it "should return js object literal for hash" do
+  it "should return js object literal for hash", :ruby => 1.9 do
     {:a => "hello", :b => 5, "c" => "world"}.to_js.should == "{a: \"hello\", b: 5, c: \"world\"}"
+  end
+
+  it "should return js object literal for hash", :ruby => 1.8 do
+    require 'active_support/ordered_hash'
+    ActiveSupport::OrderedHash[
+      :a, "hello", :b, 5, "c", "world"
+    ].to_js.should == "{a: \"hello\", b: 5, c: \"world\"}"
   end
 
   it "should return to_s representation of object" do

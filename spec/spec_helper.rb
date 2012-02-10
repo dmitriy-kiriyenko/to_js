@@ -8,5 +8,7 @@ Bundler.require(:default, :development)
 Dir[File.join(File.dirname(__FILE__), "support", "**", "*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
-  # some (optional) config here
+  config.filter_run_excluding :ruby => lambda {|version|
+    !(RUBY_VERSION.to_s =~ /^#{version.to_s}/)
+  }
 end
