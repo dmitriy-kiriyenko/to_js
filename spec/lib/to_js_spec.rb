@@ -61,4 +61,14 @@ describe "Object#to_js" do
   it "should return string without graves to string with graves" do
     "`Hello`".to_js.should == "Hello"
   end
+
+  it "should return date wrapped as string" do
+    Date.new(2012, 12, 21).to_js.should == "\"2012-12-21\""
+  end
+
+  it "should return time wrapped as string" do
+    moment = Time.at(0)
+    moment.to_js.should == "\"#{moment.to_s}\""
+  end
+
 end
