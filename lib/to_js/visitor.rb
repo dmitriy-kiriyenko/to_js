@@ -12,6 +12,10 @@ module ToJs
       end
     end
 
+    visitor_for Date, Time do |moment|
+      moment.respond_to?(:to_json) ? moment.to_json : "\"#{moment.to_s}\""
+    end
+
     visitor_for Numeric do |number|
       number.to_s
     end
